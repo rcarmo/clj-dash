@@ -1,0 +1,18 @@
+<!doctype html>
+<html ng-app="clj-dash">
+  <head>
+    <script src="js/angular.js"></script>
+    <script src="js/clj-dash_dbg.js"></script>
+    <link rel="stylesheet" href="css/clj-dash.css">
+  </head>
+  <body id="dash">
+    <div class="ink-grid" ng-controller="chart"> 
+        <table>
+        <tr xclang-repeat="group in data">
+          <td xclang-repeat="i in group">{{i}}</td>
+        </tr>
+      </table>
+      <pre>{{(count data)}}</pre>
+    </div>
+  </body>
+</html>
