@@ -14,8 +14,8 @@
 
   :hooks [leiningen.cljsbuild leiningen.resource]
 
-  :resource {:resource-paths ["res"]
-             :target-path "target/server"}
+  :resource {:resource-paths ["res/public"]
+             :target-path "target/public"}
 
   :cljsbuild {:repl-launch-commands {"firefox" ; lein cljsbuild trampoline repl-launch firefox path/to/html
                                        ["/Applications/Firefox.app/Contents/MacOS/firefox"
@@ -30,28 +30,30 @@
                                         :stderr ".repl-firefox-err"]
                                      }
               :repl-listen-port 9000
-              :notify-command ["osascript" "-e" "'display notification \"%s\" with title \"leiningen\" subtitle \"cljsbuild\"'"]
+              :notify-command ["sh" "./notify.sh"]
 
               :builds
-              {:dev
-               [{:source-paths ["src/client" "app"]
+              {:server
+                {:source-paths ["src/server"]
+                 :compiler {:output-to "target/server/server.js"
+                            :optimizations :simple
+                            :pretty-print true
+                            :target :nodejs}}
+               :dev
+               {:source-paths ["src/client"]
                  :compiler {:output-to "target/public/js/clj-dash_dbg.js"
                             :optimizations :whitespace
                             :pretty-print true}}
-                {:source-paths ["src/server"]
-                 :compiler {:output-to "target/server/server.js"
-                            :optimizations whitespace
-                            :pretty-print true
-                            :target :nodejs}}]
+
 
                :prod
-               {:source-paths ["src/client" "app"]
-                :compiler {:output-to "target/public/js/clj-dash.js"
+               {:source-paths ["src/client"]
+                :compiler {:output-to "target/public/clj-dash.js"
                            :pretty-print false
                            :optimizations :advanced}}
 
                :pre-prod
-               {:source-paths ["src/client" "app"]
+               {:source-paths ["src/client"]
                 :compiler {:output-to "target/public/js/clj-dash_pre.js"
                            :optimizations :simple
                            :pretty-print true}}}})
