@@ -9,7 +9,7 @@
 (def m (module "clj-dash" ["clang"]))
 
 (def.controller m chart [$scope]
-  (assoc! $scope :data (into [] (map (fn [%] {:x % :y (/ % 10)}) (range 0 1000))))
+  (assoc! $scope :data (into [] (map (fn [%] {:x % :y (/ % 10)}) (range 0 10))))
 
   (defn.scope count []
 	(count (:data $scope))))

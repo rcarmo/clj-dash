@@ -9,13 +9,9 @@
                  [xnlogic/clobber "0.1.0-SNAPSHOT"]
                  [com.taoensso/carmine "2.3.1"]]
   :source-paths ["src"]
-  :plugins [[lein-resource "0.3.0"]
-            [lein-cljsbuild "1.0.0-alpha2"]]
+  :plugins [[lein-cljsbuild "1.0.0-alpha2"]]
 
-  :hooks [leiningen.cljsbuild leiningen.resource]
-
-  :resource {:resource-paths ["res/public"]
-             :target-path "target/public"}
+  :hooks [leiningen.cljsbuild]
 
   :cljsbuild {:repl-launch-commands {"firefox" ; lein cljsbuild trampoline repl-launch firefox path/to/html
                                        ["/Applications/Firefox.app/Contents/MacOS/firefox"
@@ -25,7 +21,7 @@
                                      "ff"
                                        ["/Applications/Firefox.app/Contents/MacOS/firefox"
                                         "-jsconsole"
-                                        "resources/public/index.html"
+                                        "res/public/index.html"
                                         :stdout ".repl-firefox-out"
                                         :stderr ".repl-firefox-err"]
                                      }
@@ -35,26 +31,25 @@
               :builds
               {:server
                 {:source-paths ["src/server"]
-                 :compiler {:output-to "target/server/server.js"
+                 :compiler {:output-to "res/server/server.js"
                             :optimizations :simple
                             :pretty-print true
                             :target :nodejs}}
                :dev
                {:source-paths ["src/client"]
-                 :compiler {:output-to "target/public/js/clj-dash_dbg.js"
+                 :compiler {:output-to "res/public/js/clj-dash_dbg.js"
                             :optimizations :whitespace
                             :pretty-print true}}
 
-
                :prod
                {:source-paths ["src/client"]
-                :compiler {:output-to "target/public/clj-dash.js"
+                :compiler {:output-to "res/public/clj-dash.js"
                            :pretty-print false
                            :optimizations :advanced}}
 
                :pre-prod
                {:source-paths ["src/client"]
-                :compiler {:output-to "target/public/js/clj-dash_pre.js"
+                :compiler {:output-to "res/public/js/clj-dash_pre.js"
                            :optimizations :simple
                            :pretty-print true}}}})
 
